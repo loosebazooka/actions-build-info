@@ -41,9 +41,9 @@ jobs:
     - name: Write git commit
       run: echo "git-commit:$GITHUB_SHA" >> provenance.txt
     - name: debug
-      run: echo "${{ needs.build.artifact-hash }}"
+      run: echo "${{ needs.build.outputs.artifact-hash }}"
     - name: Write artifact hash
-      run: echo artifact-hash:${{ needs.build.artifact-hash }} >> provenance.txt
+      run: echo artifact-hash:${{ needs.build.outputs.artifact-hash }} >> provenance.txt
     - name: Upload provenance
       uses: actions/upload-artifact@v2
       with:
