@@ -31,6 +31,9 @@ jobs:
         name: build-artifact
         path: main
         
+    - name: debug
+      run: echo ${{ steps.sha256.outputs.value }}
+        
   generate-provenance:
     needs: build
     runs-on: ubuntu-latest
