@@ -17,7 +17,7 @@ jobs:
         go-version: 1.15
 
     - name: Build
-      run: go build -v main
+      run: go build main.go
       
     - name: Calculate artifact sha
       id: sha256
