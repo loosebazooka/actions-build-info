@@ -22,7 +22,7 @@ jobs:
     - name: Calculate artifact sha
       id: sha256
       run: |
-        SHA=sha256sum main | cut -d " " -f 1
+        SHA=$(sha256sum main | cut -d " " -f 1)
         run: echo "::set-output name=value::sha256:$SHA"
     
     - name: Upload artifact
