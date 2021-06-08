@@ -30,20 +30,31 @@ jobs:
       with:
         name: build-artifact
         path: main
-        
-    - name: debug
-      run: echo ${{ steps.sha256.outputs.value }}
-        
+                
   generate-provenance:
     needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Write git commit
       run: echo "git-commit:$GITHUB_SHA" >> provenance.txt
-    - name: debug
-      run: echo "${{ needs.build.outputs.artifact-hash }}"
+
     - name: Write artifact hash
       run: echo artifact-hash:${{ needs.build.outputs.artifact-hash }} >> provenance.txt
+      
+      # this is not exact, perhaps we should extract this during the build "job"?
+    - name: Write build time
+      run: echo build-time:$(date -Ins) >> provenance.txt
+      
+    - name: Write github invocation information
+      run: |
+        echo gh-repository:$GITHUB_REPOSITORY >> provenance.txt
+        echo gh-action:$GITHUB_ACTION >> provenance.txt
+        echo gh-run-id:$GITHUB_RUN_ID >> provenance.txt
+        echo gh-run-number:$GITHUB_RUN_NUMBER >> provenance.txt
+    
+    - name: debug
+      run: env
+      
     - name: Upload provenance
       uses: actions/upload-artifact@v2
       with:
