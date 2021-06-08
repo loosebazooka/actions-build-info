@@ -23,7 +23,7 @@ jobs:
       id: sha256
       run: |
         SHA=$(sha256sum main | cut -d " " -f 1)
-        run: echo "::set-output name=value::sha256:$SHA"
+        echo "::set-output name=value::sha256:$SHA"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v2
