@@ -45,14 +45,16 @@ jobs:
     - name: Write build time
       run: echo build-time:$(date -Ins) >> provenance.txt
       
+      # run-id and run-number can be repeated if a run is repeated
     - name: Write github invocation information
       run: |
         echo gh-repository:$GITHUB_REPOSITORY >> provenance.txt
         echo gh-action:$GITHUB_ACTION >> provenance.txt
         echo gh-run-id:$GITHUB_RUN_ID >> provenance.txt
         echo gh-run-number:$GITHUB_RUN_NUMBER >> provenance.txt
+        echo gh-actor:$GITHUB_ACTOR >> provenance.txt
     
-    - name: debug
+    - name: debug (print env)
       run: env
       
     - name: Upload provenance
